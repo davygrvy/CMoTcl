@@ -3,4 +3,9 @@
   <ItemGroup>
     <ClCompile Include="CMoTcl.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cpptcl\ItclAdaptor.hpp" />
+    <ClInclude Include="cpptcl\TclAdaptor.hpp" />
+    <ClInclude Include="cpptcl\TclHash.hpp" />
+  </ItemGroup>
 </Project>

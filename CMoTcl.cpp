@@ -7,7 +7,7 @@
 class CMoAPI
 {
 public:
-    int GetCMotionVersion(void) { return 0; };
+    int GetCMotionVersion(Tcl_Interp* interp) { return TCL_ERROR; };
 };
 
 class ItclCMoAdaptor
@@ -27,9 +27,9 @@ public:
 	: Itcl::IAdaptor<ItclCMoAdaptor>(interp)
     {
 	// Let [Incr Tcl] know we have some methods in here.
-	NewItclCmd("CMo-construct", ConstructCmd);
-	NewItclCmd("CMo-destruct",  DestructCmd);
-	NewItclCmd("CMo-GetCMotionVersion", GetCMotionVersionCmd);
+	NewItclCmd("CMo-construct", &ItclCMoAdaptor::ConstructCmd);
+	NewItclCmd("CMo-destruct", &ItclCMoAdaptor::DestructCmd);
+	NewItclCmd("CMo-GetCMotionVersion", &ItclCMoAdaptor::GetCMotionVersionCmd);
 
 	iso8859_1 = Tcl_GetEncoding(interp, "iso8859-1");
     }
@@ -86,11 +86,11 @@ private:
 	// retrieve the Itcl object context
 	if (GetItclObj(&ItclObj, objv[0]) != TCL_OK) return TCL_ERROR;
 
-	// grab the Py::Interp instance associated to this Itcl instance
+	// grab the CMoAPI instance associated to this Itcl instance
 	if (CMoHash.Extract(ItclObj, &CMoPtr) == TCL_OK) {
 
 	    // Itcl's destructor may be called even though the Itcl class
-	    // constructor returned with an error!  Thus, no Py::Interp
+	    // constructor returned with an error!  Thus, no CMoAPI
 	    // instance exists in the hash table even though an Itcl object
 	    // context exists.  Only delete what we know is there.
 	    delete CMoPtr;
@@ -117,18 +117,15 @@ private:
 	    return TCL_ERROR;
 	}
 
-	CMoPtr->GetCMotionVersion();
-
-	return TCL_ERROR;
+	return CMoPtr->GetCMotionVersion(interp);
     }
-}
+};
 
 // tell the EXTERN macro we want to declare functions for export.
 #undef TCL_STORAGE_CLASS
 #define TCL_STORAGE_CLASS DLLEXPORT
 
-EXTERN int
-Cmotcl_Init (Tcl_Interp *interp)
+EXTERN int Cmotcl_Init (Tcl_Interp *interp)
 {
 #ifdef USE_TCL_STUBS
     if (Tcl_InitStubs(interp, "8.1", 0) == 0L) {

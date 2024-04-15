@@ -16,19 +16,15 @@
 #ifndef INC_tclhash_hpp__
 #define INC_tclhash_hpp__
 
-#ifndef INC_config_hpp__
-#   include "config.hpp"
-#endif
-
 #include "tcl.h"
 
-CPPTCL_BEGIN_NAMESPACE(Tcl)
+namespace Tcl {
 
 template <class T, int keytype = TCL_STRING_KEYS>
     class Hash
 {
 public:
-    Hash () { Tcl_InitHashTable(&HashTbl, keytype); }
+    Hash () : HashSrch(NULL) { Tcl_InitHashTable(&HashTbl, keytype); }
     ~Hash () { Tcl_DeleteHashTable(&HashTbl); }
     Tcl_Obj *Stats ();
     int Add (const void *key, T result);
@@ -151,7 +147,7 @@ template <class T, int keytype>
     return TCL_OK;
 }
 
-CPPTCL_END_NAMESPACE
+}
 
 #endif	// #ifndef INC_tclhash_hpp__
 

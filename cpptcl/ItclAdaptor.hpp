@@ -60,11 +60,11 @@ protected:
 	ItclClass *contextClass;
 	
 	// Get the object context we are in
-	if (Itcl_GetContext(interp, &contextClass, contextObj) != TCL_OK
+	if (Itcl_GetContext(Tcl::Adaptor<T>::interp, &contextClass, contextObj) != TCL_OK
 		|| !contextObj) {
 	    char *token = Tcl_GetString(cmd);
-	    Tcl_ResetResult(interp);
-	    Tcl_AppendStringsToObj(Tcl_GetObjResult(interp),
+	    Tcl_ResetResult(Tcl::Adaptor<T>::interp);
+	    Tcl_AppendStringsToObj(Tcl_GetObjResult(Tcl::Adaptor<T>::interp),
 		"cannot use \"", token, "\" without an object context",
 		0L);
 	    return TCL_ERROR;

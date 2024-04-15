@@ -1,0 +1,13 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Tcl style guide, section 6.1
+# https://wiki.tcl-lang.org/page/Tcl+Style+Guide
+
+[*.{c,cpp,h,hpp,tcl}]
+charset = latin1
+tab_width = 8
+indent_style = tab
+indent_size = 4
