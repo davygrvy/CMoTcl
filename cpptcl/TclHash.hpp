@@ -24,7 +24,7 @@ template <class T, int keytype = TCL_STRING_KEYS>
     class Hash
 {
 public:
-    Hash () : HashSrch(NULL) { Tcl_InitHashTable(&HashTbl, keytype); }
+    Hash () { Tcl_InitHashTable(&HashTbl, keytype); }
     ~Hash () { Tcl_DeleteHashTable(&HashTbl); }
     Tcl_Obj *Stats ();
     int Add (const void *key, T result);
