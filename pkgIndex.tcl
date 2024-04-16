@@ -1,0 +1,1 @@
+package ifneeded cmotion 1.0 [list source [file join $dir cmotion.tcl]]

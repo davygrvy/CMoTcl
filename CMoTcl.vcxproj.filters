@@ -10,5 +10,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cmotion.tcl" />
+    <None Include="pkgIndex.tcl" />
   </ItemGroup>
 </Project>
