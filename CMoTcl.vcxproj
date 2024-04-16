@@ -26,6 +26,9 @@
     <ClInclude Include="cpptcl\TclAdaptor.hpp" />
     <ClInclude Include="cpptcl\TclHash.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="cmotion.tcl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
