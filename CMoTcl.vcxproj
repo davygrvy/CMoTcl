@@ -19,9 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CMoAPI.cpp" />
     <ClCompile Include="CMoTcl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="c-motion\c-motion.h" />
+    <ClInclude Include="c-motion\PMDdevice.h" />
+    <ClInclude Include="c-motion\PMDecode.h" />
+    <ClInclude Include="c-motion\PMDtrans.h" />
+    <ClInclude Include="c-motion\PMDtypes.h" />
+    <ClInclude Include="CMoAPI.hpp" />
     <ClInclude Include="cpptcl\ItclAdaptor.hpp" />
     <ClInclude Include="cpptcl\TclAdaptor.hpp" />
     <ClInclude Include="cpptcl\TclHash.hpp" />

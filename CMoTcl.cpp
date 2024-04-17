@@ -2,13 +2,8 @@
 
 #include "cpptcl/ItclAdaptor.hpp"
 #include "cpptcl/TclHash.hpp"
+#include "CMoAPI.hpp"
 
-// forward reference for now
-class CMoAPI
-{
-public:
-    int GetCMotionVersion(Tcl_Interp* interp) { return TCL_ERROR; };
-};
 
 class ItclCMoAdaptor
     : private Itcl::IAdaptor<ItclCMoAdaptor>
@@ -18,7 +13,7 @@ class ItclCMoAdaptor
  
     virtual void DoCleanup ()
     {
-	// The adapter base class is telling us we are about to go away and it is
+	// The Tcl::Adaptor base class is telling us we are about to go away and it is
 	// safe to use the interp pointer to do any needed cleanup.
     }
 
@@ -29,7 +24,9 @@ public:
 	// Let [Incr Tcl] know we have some methods in here.
 	NewItclCmd("CMo-construct", &ItclCMoAdaptor::ConstructCmd);
 	NewItclCmd("CMo-destruct", &ItclCMoAdaptor::DestructCmd);
-	NewItclCmd("CMo-GetCMotionVersion", &ItclCMoAdaptor::GetCMotionVersionCmd);
+
+	// Begin API connections
+	NewItclCmd("CMo-GetVersion", &ItclCMoAdaptor::PMDGetVersionCmd);
 
 	iso8859_1 = Tcl_GetEncoding(interp, "iso8859-1");
     }
@@ -98,27 +95,22 @@ private:
 	return TCL_OK;
     }
 
-    int GetCMotionVersionCmd  (int objc, struct Tcl_Obj * const objv[])
-    {
-	ItclObject *ItclObj;
-	CMoAPI *CMoPtr;
-
-	if (objc != 1) {
-	    Tcl_WrongNumArgs(interp, 1, objv, "");
-	    return TCL_ERROR;
-	}
-
-	if (GetItclObj(&ItclObj, objv[0]) != TCL_OK) return TCL_ERROR;
-
-	// grab the CMoAPI instance associated to this Itcl instance
-	if (CMoHash.Find(ItclObj, &CMoPtr) != TCL_OK) {
-	    Tcl_SetObjResult(interp,
-		    Tcl_NewStringObj("CMoAPI instance lost!", -1));
-	    return TCL_ERROR;
-	}
-
-	return CMoPtr->GetCMotionVersion(interp);
+    // Boiler-plate to connect to the CMoAPI class.
+#define NewAPICmd(a) \
+	int a##Cmd (int objc, struct Tcl_Obj * const objv[]) \
+    { \
+	ItclObject* ItclObj; \
+	CMoAPI* CMoPtr; \
+	if (GetItclObj(&ItclObj, objv[0]) != TCL_OK) return TCL_ERROR; \
+	if (CMoHash.Find(ItclObj, &CMoPtr) != TCL_OK) { \
+	    Tcl_SetObjResult(interp, Tcl_NewStringObj("CMoAPI instance lost!", -1)); \
+	    return TCL_ERROR; \
+	} \
+	return CMoPtr->a(interp,objc,objv); \
     }
+
+    NewAPICmd(PMDGetVersion);
+
 };
 
 // tell the EXTERN macro we want to declare functions for export.

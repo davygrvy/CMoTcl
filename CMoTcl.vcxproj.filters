@@ -2,14 +2,45 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="CMoTcl.cpp" />
+    <ClCompile Include="CMoAPI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cpptcl\ItclAdaptor.hpp" />
-    <ClInclude Include="cpptcl\TclAdaptor.hpp" />
-    <ClInclude Include="cpptcl\TclHash.hpp" />
+    <ClInclude Include="CMoAPI.hpp" />
+    <ClInclude Include="c-motion\c-motion.h">
+      <Filter>C-Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="c-motion\PMDdevice.h">
+      <Filter>C-Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="c-motion\PMDecode.h">
+      <Filter>C-Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="c-motion\PMDtrans.h">
+      <Filter>C-Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="c-motion\PMDtypes.h">
+      <Filter>C-Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="cpptcl\ItclAdaptor.hpp">
+      <Filter>cpptcl</Filter>
+    </ClInclude>
+    <ClInclude Include="cpptcl\TclAdaptor.hpp">
+      <Filter>cpptcl</Filter>
+    </ClInclude>
+    <ClInclude Include="cpptcl\TclHash.hpp">
+      <Filter>cpptcl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cmotion.tcl" />
     <None Include="pkgIndex.tcl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="C-Motion">
+      <UniqueIdentifier>{e883ab4a-cdd6-4c78-8b0f-323590c76850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpptcl">
+      <UniqueIdentifier>{a337dc92-d513-4f1e-bda2-af982e8acd30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
