@@ -10,7 +10,7 @@ itcl::class ::pmd::cmotion {
 	method SetProfileMode {} @CMo-SetProfileMode
 	method GetProfileMode {} @CMo-GetProfileMode
 	method SetPosition {} @CMo-SetPosition
-	method GetPosition @CMo-GetPosition
+	method GetPosition {} @CMo-GetPosition
 	method SetVelocity {} @CMo-SetVelocity
 	method GetVelocity {} @CMo-GetVelocity
 	method SetStartVelocity {} @CMo-SetStartVelocity
