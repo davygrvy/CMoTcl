@@ -58,7 +58,7 @@ PMDuint16 PMDSerial_InitPort(void* transport_data)
     itoa( SIOtransport_data->port, szPortNum, 10 );
     strcat( szPort, szPortNum );
 
-    SIOtransport_data->hPort = CreateFile( szPort, GENERIC_READ|GENERIC_WRITE, 0, 
+    SIOtransport_data->hPort = CreateFile( (LPCWSTR)szPort, GENERIC_READ|GENERIC_WRITE, 0,
         NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
 
     if( SIOtransport_data->hPort == INVALID_HANDLE_VALUE )

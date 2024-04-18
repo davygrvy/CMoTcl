@@ -23,10 +23,35 @@ public:
     {
 	// Let [Incr Tcl] know we have some methods in here.
 	NewItclCmd("CMo-construct", &ItclCMoAdaptor::ConstructCmd);
-	NewItclCmd("CMo-destruct", &ItclCMoAdaptor::DestructCmd);
+	NewItclCmd("CMo-destruct",  &ItclCMoAdaptor::DestructCmd);
 
-	// Begin API connections
+	// **** Begin API connections ****
 	NewItclCmd("CMo-GetVersion", &ItclCMoAdaptor::PMDGetVersionCmd);
+
+	// Profile Generation
+	NewItclCmd("CMo-SetProfileMode", &ItclCMoAdaptor::PMDSetProfileModeCmd);
+	NewItclCmd("CMo-GetProfileMode", &ItclCMoAdaptor::PMDGetProfileModeCmd);
+	NewItclCmd("CMo-SetPosition", &ItclCMoAdaptor::PMDSetPositionCmd);
+	NewItclCmd("CMo-GetPosition", &ItclCMoAdaptor::PMDGetPositionCmd);
+	NewItclCmd("CMo-SetVelocity", &ItclCMoAdaptor::PMDSetVelocityCmd);
+	NewItclCmd("CMo-GetVelocity", &ItclCMoAdaptor::PMDGetVelocityCmd);
+	NewItclCmd("CMo-SetStartVelocity", &ItclCMoAdaptor::PMDSetStartVelocityCmd);
+	NewItclCmd("CMo-GetStartVelocity", &ItclCMoAdaptor::PMDGetStartVelocityCmd);
+	NewItclCmd("CMo-SetAcceleration", &ItclCMoAdaptor::PMDSetAccelerationCmd);
+	NewItclCmd("CMo-GetAcceleration", &ItclCMoAdaptor::PMDGetAccelerationCmd);
+	NewItclCmd("CMo-SetDeceleration", &ItclCMoAdaptor::PMDSetDecelerationCmd);
+	NewItclCmd("CMo-GetDeceleration", &ItclCMoAdaptor::PMDGetDecelerationCmd);
+	NewItclCmd("CMo-SetJerk", &ItclCMoAdaptor::PMDSetJerkCmd);
+	NewItclCmd("CMo-GetJerk", &ItclCMoAdaptor::PMDGetJerkCmd);
+	NewItclCmd("CMo-SetGearRatio", &ItclCMoAdaptor::PMDSetGearRatioCmd);
+	NewItclCmd("CMo-GetGearRatio", &ItclCMoAdaptor::PMDGetGearRatioCmd);
+	NewItclCmd("CMo-SetGearMaster", &ItclCMoAdaptor::PMDSetGearMasterCmd);
+	NewItclCmd("CMo-GetGearMaster", &ItclCMoAdaptor::PMDGetGearMasterCmd);
+	NewItclCmd("CMo-SetStopMode", &ItclCMoAdaptor::PMDSetStopModeCmd);
+	NewItclCmd("CMo-GetStopMode", &ItclCMoAdaptor::PMDGetStopModeCmd);
+	NewItclCmd("CMo-GetCommandedPosition", &ItclCMoAdaptor::PMDGetCommandedPositionCmd);
+	NewItclCmd("CMo-GetCommandedVelocity", &ItclCMoAdaptor::PMDGetCommandedVelocityCmd);
+	NewItclCmd("CMo-GetCommandedAcceleration", &ItclCMoAdaptor::PMDGetCommandedAccelerationCmd);
 
 	iso8859_1 = Tcl_GetEncoding(interp, "iso8859-1");
     }
@@ -110,6 +135,31 @@ private:
     }
 
     NewAPICmd(PMDGetVersion);
+
+    // Profile Generation
+    NewAPICmd(PMDSetProfileMode);
+    NewAPICmd(PMDGetProfileMode);
+    NewAPICmd(PMDSetPosition);
+    NewAPICmd(PMDGetPosition);
+    NewAPICmd(PMDSetVelocity);
+    NewAPICmd(PMDGetVelocity);
+    NewAPICmd(PMDSetStartVelocity);
+    NewAPICmd(PMDGetStartVelocity);
+    NewAPICmd(PMDSetAcceleration);
+    NewAPICmd(PMDGetAcceleration);
+    NewAPICmd(PMDSetDeceleration);
+    NewAPICmd(PMDGetDeceleration);
+    NewAPICmd(PMDSetJerk);
+    NewAPICmd(PMDGetJerk);
+    NewAPICmd(PMDSetGearRatio);
+    NewAPICmd(PMDGetGearRatio);
+    NewAPICmd(PMDSetGearMaster);
+    NewAPICmd(PMDGetGearMaster);
+    NewAPICmd(PMDSetStopMode);
+    NewAPICmd(PMDGetStopMode);
+    NewAPICmd(PMDGetCommandedPosition);
+    NewAPICmd(PMDGetCommandedVelocity);
+    NewAPICmd(PMDGetCommandedAcceleration);
 
 /*
     

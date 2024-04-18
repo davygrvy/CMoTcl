@@ -3,6 +3,9 @@
   <ItemGroup>
     <ClCompile Include="CMoTcl.cpp" />
     <ClCompile Include="CMoAPI.cpp" />
+    <ClCompile Include="c-motion\PMDW32Ser.c">
+      <Filter>C-Motion</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMoAPI.hpp" />
@@ -29,6 +32,9 @@
     </ClInclude>
     <ClInclude Include="cpptcl\TclHash.hpp">
       <Filter>cpptcl</Filter>
+    </ClInclude>
+    <ClInclude Include="c-motion\PMDW32Ser.h">
+      <Filter>C-Motion</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

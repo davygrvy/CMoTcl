@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="c-motion\PMDW32Ser.c" />
     <ClCompile Include="CMoAPI.cpp" />
     <ClCompile Include="CMoTcl.cpp" />
   </ItemGroup>
@@ -28,6 +29,7 @@
     <ClInclude Include="c-motion\PMDecode.h" />
     <ClInclude Include="c-motion\PMDtrans.h" />
     <ClInclude Include="c-motion\PMDtypes.h" />
+    <ClInclude Include="c-motion\PMDW32Ser.h" />
     <ClInclude Include="CMoAPI.hpp" />
     <ClInclude Include="cpptcl\ItclAdaptor.hpp" />
     <ClInclude Include="cpptcl\TclAdaptor.hpp" />

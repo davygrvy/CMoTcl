@@ -37,3 +37,142 @@ CMoAPI::PMDGetVersion(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]
 {
     return TCL_ERROR;
 };
+
+int
+CMoAPI::PMDSetProfileMode(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetProfileMode(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDSetPosition(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetPosition(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDSetVelocity(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetVelocity(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDSetStartVelocity(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetStartVelocity(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDSetAcceleration(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetAcceleration(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDSetDeceleration(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetDeceleration(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDSetJerk(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetJerk(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDSetGearRatio(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetGearRatio(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDSetGearMaster(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetGearMaster(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDSetStopMode(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetStopMode(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetCommandedPosition(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetCommandedVelocity(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
+int
+CMoAPI::PMDGetCommandedAcceleration(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
+{
+    return TCL_ERROR;
+};
+
