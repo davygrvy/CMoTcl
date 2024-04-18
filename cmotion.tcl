@@ -1,4 +1,4 @@
-load [file join [file dirname [info script]] CMoTcl10.dll]
+load [file join [file dirname [info script]] CMoTcl10.[info sharedlibextension]]
 
 itcl::class ::pmd::cmotion {
     constructor {} { _init }
