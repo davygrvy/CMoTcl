@@ -8,5 +8,5 @@ public:
     ~CMoAPI();
     int PMDGetVersion(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
 private:
-    PMDAxisHandle* phAxis;
+    PMDAxisHandle hAxis;
 };
