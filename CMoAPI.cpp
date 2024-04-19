@@ -17,14 +17,15 @@
 
 CMoAPI::CMoAPI (Tcl_Interp* interp)
 {
-    PMDuint32 maj, min;
+    PMDuint32 Maj, Min;
 
-    // Does c-motion.h match the loaded DLL?
+    // Does compile-time C-Motion API match the loaded DLL?
     //
-    PMDGetCMotionVersion(&maj, &min);
-    if ((maj != CMOTION_MAJOR_VERSION) || (min != CMOTION_MINOR_VERSION))
+    PMDGetCMotionVersion(&Maj, &Min);
+    if ((Maj != CMOTION_MAJOR_VERSION) || (Min != CMOTION_MINOR_VERSION))
     {
-	throw "C-Motion version mismatch of DLL!";
+	throw "C-Motion version mismatch of DLL! Got " << Maj << "." << Min <<
+	    " but needed " << CMOTION_MAJOR_VERSION << "." << CMOTION_MINOR_VERSION;
     }
 
 #if defined PMD_CAN_INTERFACE
