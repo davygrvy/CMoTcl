@@ -36,6 +36,9 @@
     <ClInclude Include="c-motion\PMDW32Ser.h">
       <Filter>C-Motion</Filter>
     </ClInclude>
+    <ClInclude Include="c-motion\PMDdiag.h">
+      <Filter>C-Motion</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cmotion.tcl" />

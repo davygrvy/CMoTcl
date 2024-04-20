@@ -1,4 +1,5 @@
 #include "CMoAPI.hpp"
+#include "c-motion/PMDdiag.h"
 
 #ifdef WIN32
 #   ifdef _MSC_VER
@@ -17,20 +18,10 @@
 
 CMoAPI::CMoAPI (Tcl_Interp* interp)
 {
-    PMDuint32 Maj, Min;
-
-    // Does compile-time C-Motion API match the loaded DLL?
-    //
-    PMDGetCMotionVersion(&Maj, &Min);
-    if ((Maj != CMOTION_MAJOR_VERSION) || (Min != CMOTION_MINOR_VERSION))
-    {
-	throw "C-Motion version mismatch of DLL! Got " << Maj << "." << Min <<
-	    " but needed " << CMOTION_MAJOR_VERSION << "." << CMOTION_MINOR_VERSION;
-    }
 
 #if defined PMD_CAN_INTERFACE
     // open the CAN interface at 20,000 baud and NodeID=0
-    PMDSetupAxisInterface_CAN(&hAxis1, PMDAxis, PMDCANBaud20000, 0);
+    PMDSetupAxisInterface_CAN(&hAxis, PMDAxis, PMDCANBaud20000, 0);
 #elif defined PMD_W32SERIAL_INTERFACE
     // Open the serial interface (57600 baud and point-to-point protocol)
     // The third parameter represents the COM port number (0=default of COM1)
@@ -38,7 +29,7 @@ CMoAPI::CMoAPI (Tcl_Interp* interp)
 #elif defined PMD_SPI_INTERFACE
     // Open the SPI interface
     // The third parameter represents the device number (0=first NI device found)
-    PMDSetupAxisInterface_SPI(&hAxis1, PMDAxis, 0);
+    PMDSetupAxisInterface_SPI(&hAxis, PMDAxis, 0);
 #endif
 
 };
@@ -56,13 +47,76 @@ CMoAPI::PMDGetVersion(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]
 int
 CMoAPI::PMDSetProfileMode(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
 {
-    return TCL_ERROR;
+    PMDresult result;
+    PMDuint16 mode;
+    static const char* cmodes[] = {
+	"trapezoidial", "velocity", "s-curve", "electronic-gear", 0L
+    };
+    enum cmodes {
+	trapezoidial, velocity, scurve, electronicgear
+    };
+    int index;
+
+    if (Tcl_GetIndexFromObj(interp, objv[1], (const char**)cmodes,
+	"ProfileMode", 0, &index) != TCL_OK) {
+	return TCL_ERROR;
+    }
+
+    switch ((enum cmodes)index) {
+    case trapezoidial:
+	mode = PMDProfileModeTrapezoidal; break;
+    case velocity:
+	mode = PMDProfileModeVelocity; break;
+    case scurve:
+	mode = PMDProfileModeSCurve; break;
+    case electronicgear:
+	mode = PMDProfileModeElectronicGear; break;
+    default:
+	return TCL_ERROR;
+    }
+
+    if ((result = ::PMDSetProfileMode(&hAxis, mode)) != PMD_NOERROR)
+    {
+	Tcl_SetObjResult(interp,
+	    Tcl_NewStringObj(::PMDGetErrorMessage(result), -1));
+	;
+	return TCL_ERROR;
+    }
+
+    return TCL_OK;
 };
 
 int
 CMoAPI::PMDGetProfileMode(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
 {
-    return TCL_ERROR;
+    PMDresult result;
+    PMDuint16 mode;
+    Tcl_Obj* pm;
+
+    if ((result = ::PMDGetProfileMode(&hAxis, &mode)) != PMD_NOERROR)
+    {
+	Tcl_SetObjResult(interp,
+	    Tcl_NewStringObj(::PMDGetErrorMessage(result), -1));
+	;
+	return TCL_ERROR;
+    }
+
+    switch (mode)
+    {
+	case PMDProfileModeTrapezoidal:
+	    pm = Tcl_NewStringObj("trapezoidial", -1); break;
+	case PMDProfileModeVelocity:
+	    pm = Tcl_NewStringObj("velocity", -1); break;
+	case PMDProfileModeSCurve:
+	    pm = Tcl_NewStringObj("s-curve", -1); break;
+	case PMDProfileModeElectronicGear:
+	    pm = Tcl_NewStringObj("electronic-gear", -1); break;
+	default:
+	    Tcl_Panic("unknown profile mode");
+    }
+
+    Tcl_SetObjResult(interp, pm);
+    return TCL_OK;
 };
 
 int

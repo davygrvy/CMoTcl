@@ -1,9 +1,37 @@
+/*
+ * This is CMoTcl, an extension for Tcl that provides a connection to 
+ * Performance Motion Devices' C-Motion API to control their range of motor 
+ * controllers.
+ * 
+ * See: https://www.pmdcorp.com/products/development-software
+ *
+ * Author: David Gravereaux <davygrvy@pobox.com> April 2024
+ *
+ * Not only is this a Tcl extension, but it's also an [Incr Tcl] extension,
+ * too.  The model looks like this..  Each Tcl interpreter that loads this
+ * extension is told that Itcl can find some methods in here.  Many Itcl
+ * instances of CMoAPI are possible.  So are multiple Tcl interps that
+ * have multiple CMoAPI instances.
+ *
+ * The ItclCMoAdaptor class isn't actually Itcl's pmd::cmotion class.
+ * ItclPyAdapter is the template (or go between) to Itcl's pmd::cmotion
+ * instances and are directly associated to each CMoAPI C++ instance.
+ *
+ * Most of the dirty work is done in Itcl::IAdapter and Tcl::Adapter for the
+ * duties of being an Itcl/Tcl extension.  This allows ItclCMoAdaptor to be more
+ * readable and only contain the 'meat' of what it's job is.
+ *
+ * Consider this work under BSD license.  If you make improvements to this,
+ * I would apreciate it if you could send me the patches.  This is not a
+ * requirement for use of this software.
+ */
 
 
 #include "cpptcl/ItclAdaptor.hpp"
 #include "cpptcl/TclHash.hpp"
 #include "CMoAPI.hpp"
-
+#include <string>
+#include <sstream>
 
 class ItclCMoAdaptor
     : private Itcl::IAdaptor<ItclCMoAdaptor>
@@ -21,37 +49,41 @@ public:
     ItclCMoAdaptor(Tcl_Interp *interp)
 	: Itcl::IAdaptor<ItclCMoAdaptor>(interp)
     {
+
 	// Let [Incr Tcl] know we have some methods in here.
 	NewItclCmd("CMo-construct", &ItclCMoAdaptor::ConstructCmd);
 	NewItclCmd("CMo-destruct",  &ItclCMoAdaptor::DestructCmd);
 
+#define NewItclAPICmd(a) \
+     NewItclCmd(STRINGIFY(JOIN(CMo-,a)), &ItclCMoAdaptor::PMD##a##Cmd)
+
 	// **** Begin API connections ****
-	NewItclCmd("CMo-GetVersion", &ItclCMoAdaptor::PMDGetVersionCmd);
+	NewItclAPICmd(GetVersion);
 
 	// Profile Generation
-	NewItclCmd("CMo-SetProfileMode", &ItclCMoAdaptor::PMDSetProfileModeCmd);
-	NewItclCmd("CMo-GetProfileMode", &ItclCMoAdaptor::PMDGetProfileModeCmd);
-	NewItclCmd("CMo-SetPosition", &ItclCMoAdaptor::PMDSetPositionCmd);
-	NewItclCmd("CMo-GetPosition", &ItclCMoAdaptor::PMDGetPositionCmd);
-	NewItclCmd("CMo-SetVelocity", &ItclCMoAdaptor::PMDSetVelocityCmd);
-	NewItclCmd("CMo-GetVelocity", &ItclCMoAdaptor::PMDGetVelocityCmd);
-	NewItclCmd("CMo-SetStartVelocity", &ItclCMoAdaptor::PMDSetStartVelocityCmd);
-	NewItclCmd("CMo-GetStartVelocity", &ItclCMoAdaptor::PMDGetStartVelocityCmd);
-	NewItclCmd("CMo-SetAcceleration", &ItclCMoAdaptor::PMDSetAccelerationCmd);
-	NewItclCmd("CMo-GetAcceleration", &ItclCMoAdaptor::PMDGetAccelerationCmd);
-	NewItclCmd("CMo-SetDeceleration", &ItclCMoAdaptor::PMDSetDecelerationCmd);
-	NewItclCmd("CMo-GetDeceleration", &ItclCMoAdaptor::PMDGetDecelerationCmd);
-	NewItclCmd("CMo-SetJerk", &ItclCMoAdaptor::PMDSetJerkCmd);
-	NewItclCmd("CMo-GetJerk", &ItclCMoAdaptor::PMDGetJerkCmd);
-	NewItclCmd("CMo-SetGearRatio", &ItclCMoAdaptor::PMDSetGearRatioCmd);
-	NewItclCmd("CMo-GetGearRatio", &ItclCMoAdaptor::PMDGetGearRatioCmd);
-	NewItclCmd("CMo-SetGearMaster", &ItclCMoAdaptor::PMDSetGearMasterCmd);
-	NewItclCmd("CMo-GetGearMaster", &ItclCMoAdaptor::PMDGetGearMasterCmd);
-	NewItclCmd("CMo-SetStopMode", &ItclCMoAdaptor::PMDSetStopModeCmd);
-	NewItclCmd("CMo-GetStopMode", &ItclCMoAdaptor::PMDGetStopModeCmd);
-	NewItclCmd("CMo-GetCommandedPosition", &ItclCMoAdaptor::PMDGetCommandedPositionCmd);
-	NewItclCmd("CMo-GetCommandedVelocity", &ItclCMoAdaptor::PMDGetCommandedVelocityCmd);
-	NewItclCmd("CMo-GetCommandedAcceleration", &ItclCMoAdaptor::PMDGetCommandedAccelerationCmd);
+	NewItclAPICmd(SetProfileMode);
+	NewItclAPICmd(GetProfileMode);
+	NewItclAPICmd(SetPosition);
+	NewItclAPICmd(GetPosition);
+	NewItclAPICmd(SetVelocity);
+	NewItclAPICmd(GetVelocity);
+	NewItclAPICmd(SetStartVelocity);
+	NewItclAPICmd(GetStartVelocity);
+	NewItclAPICmd(SetAcceleration);
+	NewItclAPICmd(GetAcceleration);
+	NewItclAPICmd(SetDeceleration);
+	NewItclAPICmd(GetDeceleration);
+	NewItclAPICmd(SetJerk);
+	NewItclAPICmd(GetJerk);
+	NewItclAPICmd(SetGearRatio);
+	NewItclAPICmd(GetGearRatio);
+	NewItclAPICmd(SetGearMaster);
+	NewItclAPICmd(GetGearMaster);
+	NewItclAPICmd(SetStopMode);
+	NewItclAPICmd(GetStopMode);
+	NewItclAPICmd(GetCommandedPosition);
+	NewItclAPICmd(GetCommandedVelocity);
+	NewItclAPICmd(GetCommandedAcceleration);
 
 	iso8859_1 = Tcl_GetEncoding(interp, "iso8859-1");
     }
@@ -472,8 +504,12 @@ File Type: DLL
 #undef TCL_STORAGE_CLASS
 #define TCL_STORAGE_CLASS DLLEXPORT
 
+// This is Tcl's entry point
+
 EXTERN int Cmotcl_Init (Tcl_Interp *interp)
 {
+    PMDuint32 Maj, Min;
+
 #ifdef USE_TCL_STUBS
     if (Tcl_InitStubs(interp, "8.1", 0) == 0L) {
 	return TCL_ERROR;
@@ -484,6 +520,20 @@ EXTERN int Cmotcl_Init (Tcl_Interp *interp)
 	return TCL_ERROR;
     }
 #endif
+
+    // Does the compile-time C-Motion API match the implicitly loaded DLL?
+    //
+    PMDGetCMotionVersion(&Maj, &Min);
+    if ((Maj != CMOTION_MAJOR_VERSION) || (Min != CMOTION_MINOR_VERSION))
+    {
+	std::ostringstream msg;
+	msg << "C-Motion version mismatch of DLL! Got " << Maj << "." << Min <<
+	    " but needed " << CMOTION_MAJOR_VERSION << "." << CMOTION_MINOR_VERSION;
+	Tcl_SetObjResult(interp, Tcl_NewStringObj(msg.str().c_str(),
+	    msg.str().length()));
+	return TCL_ERROR;
+    }
+
     new ItclCMoAdaptor(interp);
     Tcl_PkgProvide(interp, "cmotion", "1.0");
     return TCL_OK;
