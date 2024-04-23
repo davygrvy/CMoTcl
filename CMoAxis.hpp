@@ -1,11 +1,11 @@
 #include "tcl.h"
 #include "c-motion/c-motion.h"
 
-class CMoAPI
+class CMoAxis
 {
 public:
-    CMoAPI(Tcl_Interp* interp);
-    ~CMoAPI();
+    CMoAxis(Tcl_Interp* interp);
+    ~CMoAxis();
     int PMDGetVersion(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
 
     int PMDSetProfileMode(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
@@ -31,6 +31,25 @@ public:
     int PMDGetCommandedPosition(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
     int PMDGetCommandedVelocity(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
     int PMDGetCommandedAcceleration(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+
+    int PMDSetMotorLimit(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDGetMotorLimit(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDSetMotorBias(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDGetMotorBias(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDSetPositionErrorLimit(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDGetPositionErrorLimit(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDSetSettleTime(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDGetSettleTime(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDSetSettleWindow(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDGetSettleWindow(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDSetTrackingWindow(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDGetTrackingWindow(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDSetMotionCompleteMode(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDGetMotionCompleteMode(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDClearPositionError(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDGetPositionError(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDSetSampleTime(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDGetSampleTime(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
 
 private:
     PMDAxisHandle hAxis;

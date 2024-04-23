@@ -20,8 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="c-motion\PMDW32Ser.c" />
-    <ClCompile Include="CMoAPI.cpp" />
+    <ClCompile Include="CMoAxis.cpp" />
     <ClCompile Include="CMoTcl.cpp" />
+    <ClCompile Include="CMoTransport.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c-motion\c-motion.h" />
@@ -31,7 +32,7 @@
     <ClInclude Include="c-motion\PMDtrans.h" />
     <ClInclude Include="c-motion\PMDtypes.h" />
     <ClInclude Include="c-motion\PMDW32Ser.h" />
-    <ClInclude Include="CMoAPI.hpp" />
+    <ClInclude Include="CMoAxis.hpp" />
     <ClInclude Include="cpptcl\ItclAdaptor.hpp" />
     <ClInclude Include="cpptcl\TclAdaptor.hpp" />
     <ClInclude Include="cpptcl\TclHash.hpp" />

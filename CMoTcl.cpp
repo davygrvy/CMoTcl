@@ -29,14 +29,14 @@
 
 #include "cpptcl/ItclAdaptor.hpp"
 #include "cpptcl/TclHash.hpp"
-#include "CMoAPI.hpp"
+#include "CMoAxis.hpp"
 #include <string>
 #include <sstream>
 
 class ItclCMoAdaptor
     : private Itcl::IAdaptor<ItclCMoAdaptor>
 {
-    Tcl::Hash<CMoAPI *, TCL_ONE_WORD_KEYS> CMoHash;
+    Tcl::Hash<CMoAxis *, TCL_ONE_WORD_KEYS> CMoHash;
     Tcl_Encoding iso8859_1;
  
     virtual void DoCleanup ()
@@ -85,6 +85,26 @@ public:
 	NewItclAPICmd(GetCommandedVelocity);
 	NewItclAPICmd(GetCommandedAcceleration);
 
+	// Position Loop
+	NewItclAPICmd(SetMotorLimit);
+	NewItclAPICmd(GetMotorLimit);
+	NewItclAPICmd(SetMotorBias);
+	NewItclAPICmd(GetMotorBias);
+	NewItclAPICmd(SetPositionErrorLimit);
+	NewItclAPICmd(GetPositionErrorLimit);
+	NewItclAPICmd(SetSettleTime);
+	NewItclAPICmd(GetSettleTime);
+	NewItclAPICmd(SetSettleWindow);
+	NewItclAPICmd(GetSettleWindow);
+	NewItclAPICmd(SetTrackingWindow);
+	NewItclAPICmd(GetTrackingWindow);
+	NewItclAPICmd(SetMotionCompleteMode);
+	NewItclAPICmd(GetMotionCompleteMode);
+	NewItclAPICmd(ClearPositionError);
+	NewItclAPICmd(GetPositionError);
+	NewItclAPICmd(SetSampleTime);
+	NewItclAPICmd(GetSampleTime);
+	
 	iso8859_1 = Tcl_GetEncoding(interp, "iso8859-1");
     }
 
@@ -100,7 +120,7 @@ private:
     int ConstructCmd (int objc, struct Tcl_Obj * const objv[])
     {
 	ItclObject *ItclObj;
-	CMoAPI *CMoPtr;
+	CMoAxis *CMoPtr;
 
 	if (objc != 1) {
 	    Tcl_WrongNumArgs(interp, 1, objv, "");
@@ -112,7 +132,7 @@ private:
 	// Using the Itcl object context pointer as our key, create a new
 	// CMoAPI C++ object and store the pointer in the hash table.
 	try {
-	    CMoPtr = new CMoAPI(interp);
+	    CMoPtr = new CMoAxis(interp);
 	}
 	catch (char *err) {
 	    // Whoop!  The house is on fire, run for the hills...
@@ -130,7 +150,7 @@ private:
     int DestructCmd (int objc, struct Tcl_Obj * const objv[])
     {
 	ItclObject *ItclObj;
-	CMoAPI *CMoPtr;
+	CMoAxis *CMoPtr;
 
 	if (objc != 1) {
 	    Tcl_WrongNumArgs(interp, 1, objv, "");
@@ -157,7 +177,7 @@ private:
 	int a##Cmd (int objc, struct Tcl_Obj * const objv[]) \
     { \
 	ItclObject* ItclObj; \
-	CMoAPI* CMoPtr; \
+	CMoAxis* CMoPtr; \
 	if (GetItclObj(&ItclObj, objv[0]) != TCL_OK) return TCL_ERROR; \
 	if (CMoHash.Find(ItclObj, &CMoPtr) != TCL_OK) { \
 	    Tcl_SetObjResult(interp, Tcl_NewStringObj("CMoAPI instance lost!", -1)); \
@@ -192,6 +212,26 @@ private:
     NewAPICmd(PMDGetCommandedPosition);
     NewAPICmd(PMDGetCommandedVelocity);
     NewAPICmd(PMDGetCommandedAcceleration);
+
+    // Position Loop
+    NewAPICmd(PMDSetMotorLimit);
+    NewAPICmd(PMDGetMotorLimit);
+    NewAPICmd(PMDSetMotorBias);
+    NewAPICmd(PMDGetMotorBias);
+    NewAPICmd(PMDSetPositionErrorLimit);
+    NewAPICmd(PMDGetPositionErrorLimit);
+    NewAPICmd(PMDSetSettleTime);
+    NewAPICmd(PMDGetSettleTime);
+    NewAPICmd(PMDSetSettleWindow);
+    NewAPICmd(PMDGetSettleWindow);
+    NewAPICmd(PMDSetTrackingWindow);
+    NewAPICmd(PMDGetTrackingWindow);
+    NewAPICmd(PMDSetMotionCompleteMode);
+    NewAPICmd(PMDGetMotionCompleteMode);
+    NewAPICmd(PMDClearPositionError);
+    NewAPICmd(PMDGetPositionError);
+    NewAPICmd(PMDSetSampleTime);
+    NewAPICmd(PMDGetSampleTime);
 
 /*
     
@@ -529,8 +569,7 @@ EXTERN int Cmotcl_Init (Tcl_Interp *interp)
 	std::ostringstream msg;
 	msg << "C-Motion version mismatch of DLL! Got " << Maj << "." << Min <<
 	    " but needed " << CMOTION_MAJOR_VERSION << "." << CMOTION_MINOR_VERSION;
-	Tcl_SetObjResult(interp, Tcl_NewStringObj(msg.str().c_str(),
-	    msg.str().length()));
+	Tcl_SetObjResult(interp, Tcl_NewStringObj(msg.str().c_str(), -1));
 	return TCL_ERROR;
     }
 

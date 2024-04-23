@@ -31,6 +31,25 @@ itcl::class ::pmd::cmotion {
 	method GetCommandedVelocity {} @CMo-GetCommandedVelocity
 	method GetCommandedAcceleration {} @CMo-GetCommandedAcceleration
 
+	# Position Loop
+	method SetMotorLimit {} @CMo-SetMotorLimit
+	method GetMotorLimit {} @CMo-GetMotorLimit
+	method SetMotorBias {} @CMo-SetMotorBias
+	method GetMotorBias {} @CMo-GetMotorBias
+	method SetPositionErrorLimit {} @CMo-SetPositionErrorLimit
+	method GetPositionErrorLimit {} @CMo-GetPositionErrorLimit
+	method SetSettleTime {} @CMo-SetSettleTime
+	method GetSettleTime {} @CMo-GetSettleTime
+	method SetSettleWindow {} @CMo-SetSettleWindow
+	method GetSettleWindow {} @CMo-GetSettleWindow
+	method SetTrackingWindow {} @CMo-SetTrackingWindow
+	method GetTrackingWindow {} @CMo-GetTrackingWindow
+	method SetMotionCompleteMode {} @CMo-SetMotionCompleteMode
+	method GetMotionCompleteMode {} @CMo-GetMotionCompleteMode
+	method ClearPositionError {} @CMo-ClearPositionError
+	method GetPositionError {} @CMo-GetPositionError
+	method SetSampleTime {} @CMo-SetSampleTime
+	method GetSampleTime {} @CMo-GetSampleTime
     }
     private {
 	method _init    {} @CMo-construct

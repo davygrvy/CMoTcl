@@ -2,13 +2,14 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="CMoTcl.cpp" />
-    <ClCompile Include="CMoAPI.cpp" />
+    <ClCompile Include="CMoAxis.cpp" />
     <ClCompile Include="c-motion\PMDW32Ser.c">
       <Filter>C-Motion</Filter>
     </ClCompile>
+    <ClCompile Include="CMoTransport.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CMoAPI.hpp" />
+    <ClInclude Include="CMoAxis.hpp" />
     <ClInclude Include="c-motion\c-motion.h">
       <Filter>C-Motion</Filter>
     </ClInclude>
