@@ -577,13 +577,33 @@ CMoAxis::PMDGetMotionCompleteMode(Tcl_Interp* interp, int objc, struct Tcl_Obj* 
 int
 CMoAxis::PMDClearPositionError(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
 {
-    return TCL_ERROR;
+    PMDresult result;
+
+    if (PMD_NOERROR != (result = ::PMDClearPositionError(&hAxis)))
+    {
+	Tcl_SetObjResult(interp,
+	    Tcl_NewStringObj(::PMDGetErrorMessage(result), -1));
+	return TCL_ERROR;
+    }
+
+    return TCL_OK;
 };
 
 int
 CMoAxis::PMDGetPositionError(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
 {
-    return TCL_ERROR;
+    PMDresult result;
+    PMDint32 err;
+
+    if (PMD_NOERROR != (result = ::PMDGetPositionError(&hAxis, &err)))
+    {
+	Tcl_SetObjResult(interp,
+	    Tcl_NewStringObj(::PMDGetErrorMessage(result), -1));
+	return TCL_ERROR;
+    }
+
+    Tcl_SetObjResult(interp, Tcl_NewIntObj(err));
+    return TCL_OK;
 };
 
 int
@@ -595,7 +615,18 @@ CMoAxis::PMDSetSampleTime(Tcl_Interp* interp, int objc, struct Tcl_Obj* const ob
 int
 CMoAxis::PMDGetSampleTime(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
 {
-    return TCL_ERROR;
+    PMDresult result;
+    PMDuint32 time;
+
+    if (PMD_NOERROR != (result = ::PMDGetSampleTime(&hAxis, &time)))
+    {
+	Tcl_SetObjResult(interp,
+	    Tcl_NewStringObj(::PMDGetErrorMessage(result), -1));
+	return TCL_ERROR;
+    }
+
+    Tcl_SetObjResult(interp, Tcl_NewWideIntObj(time));
+    return TCL_OK;
 };
 
 
@@ -617,7 +648,7 @@ CMoAxis::PMDSetMotorType(Tcl_Interp* interp, int objc, struct Tcl_Obj* const obj
     int index;
 
     if (TCL_OK != Tcl_GetIndexFromObj(interp, objv[1],
-	(const char**)cmodes, "mode", 0, &index))
+	(const char**)cmodes, "motortype", 0, &index))
     {
 	return TCL_ERROR;
     }
@@ -653,7 +684,6 @@ CMoAxis::PMDSetMotorType(Tcl_Interp* interp, int objc, struct Tcl_Obj* const obj
 int
 CMoAxis::PMDGetMotorType(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
 {
-    //PMDMotorType type;
     PMDuint16 type;
     PMDresult result;
     Tcl_Obj* mt;
@@ -690,18 +720,72 @@ CMoAxis::PMDGetMotorType(Tcl_Interp* interp, int objc, struct Tcl_Obj* const obj
 int
 CMoAxis::PMDSetMotorCommand(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
 {
-    return TCL_ERROR;
+    PMDresult result;
+    PMDint16 cmd;
+    int temp;
+
+    if (objc != 2)
+    {
+	Tcl_WrongNumArgs(interp, 1, objv, "command");
+	return TCL_ERROR;
+    }
+
+    if (TCL_OK != Tcl_GetIntFromObj(interp, objv[1], &temp))
+    {
+	return TCL_ERROR;
+    }
+
+    // validate range
+    if (temp < MININT16 || temp > MAXINT16)
+    {
+	Tcl_SetObjResult(interp, Tcl_NewStringObj("value out of range", -1));
+	return TCL_ERROR;
+    }
+    else
+    {
+	cmd = static_cast<PMDint16>(temp);
+    }
+
+    if (PMD_NOERROR != (result = ::PMDSetMotorCommand(&hAxis, cmd)))
+    {
+	Tcl_SetObjResult(interp,
+	    Tcl_NewStringObj(::PMDGetErrorMessage(result), -1));
+	return TCL_ERROR;
+    }
+    return TCL_OK;
 };
 
 int
 CMoAxis::PMDGetMotorCommand(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
 {
-    return TCL_ERROR;
+    PMDresult result;
+    PMDint16 cmd;
+
+    if (PMD_NOERROR != (result = ::PMDGetMotorCommand(&hAxis, &cmd)))
+    {
+	Tcl_SetObjResult(interp,
+	    Tcl_NewStringObj(::PMDGetErrorMessage(result), -1));
+	return TCL_ERROR;
+    }
+
+    Tcl_SetObjResult(interp, Tcl_NewIntObj(cmd));
+    return TCL_OK;
 };
 
 int
 CMoAxis::PMDGetActiveMotorCommand(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[])
 {
-    return TCL_ERROR;
+    PMDresult result;
+    PMDint16 cmd;
+
+    if (PMD_NOERROR != (result = ::PMDGetActiveMotorCommand(&hAxis, &cmd)))
+    {
+	Tcl_SetObjResult(interp,
+	    Tcl_NewStringObj(::PMDGetErrorMessage(result), -1));
+	return TCL_ERROR;
+    }
+
+    Tcl_SetObjResult(interp, Tcl_NewIntObj(cmd));
+    return TCL_OK;
 };
 

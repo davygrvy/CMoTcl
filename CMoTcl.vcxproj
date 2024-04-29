@@ -33,6 +33,7 @@
     <ClInclude Include="c-motion\PMDtypes.h" />
     <ClInclude Include="c-motion\PMDW32Ser.h" />
     <ClInclude Include="CMoAxis.hpp" />
+    <ClInclude Include="CMoTransport.h" />
     <ClInclude Include="cpptcl\ItclAdaptor.hpp" />
     <ClInclude Include="cpptcl\TclAdaptor.hpp" />
     <ClInclude Include="cpptcl\TclHash.hpp" />
