@@ -50,6 +50,14 @@ itcl::class ::pmd::cmotion {
 	method GetPositionError {} @CMo-GetPositionError
 	method SetSampleTime {} @CMo-SetSampleTime
 	method GetSampleTime {} @CMo-GetSampleTime
+
+	# Motor
+	method SetMotorType {} @CMo-SetMotorType
+	method GetMotorType {} @CMo-GetMotorType
+	method SetMotorCommand {} @CMo-SetMotorCommand
+	method GetMotorCommand {} @CMo-GetMotorCommand
+	method GetActiveMotorCommand {} @CMo-GetActiveMotorCommand
+
     }
     private {
 	method _init    {} @CMo-construct

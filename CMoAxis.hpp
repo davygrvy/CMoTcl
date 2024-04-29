@@ -51,6 +51,13 @@ public:
     int PMDSetSampleTime(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
     int PMDGetSampleTime(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
 
+    // Motor
+    int PMDSetMotorType(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDGetMotorType(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDSetMotorCommand(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDGetMotorCommand(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
+    int PMDGetActiveMotorCommand(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]); // same as PMDGetCurrentMotorCommand
+
 private:
     PMDAxisHandle hAxis;
 };

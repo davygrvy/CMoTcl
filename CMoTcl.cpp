@@ -10,8 +10,8 @@
  * Not only is this a Tcl extension, but it's also an [Incr Tcl] extension,
  * too.  The model looks like this..  Each Tcl interpreter that loads this
  * extension is told that Itcl can find some methods in here.  Many Itcl
- * instances of CMoAPI are possible.  So are multiple Tcl interps that
- * have multiple CMoAPI instances.
+ * instances of CMoAxis are possible.  So are multiple Tcl interps that
+ * have multiple CMoAxis instances.
  *
  * The ItclCMoAdaptor class isn't actually Itcl's pmd::cmotion class.
  * ItclPyAdapter is the template (or go between) to Itcl's pmd::cmotion
@@ -105,6 +105,13 @@ public:
 	NewItclAPICmd(SetSampleTime);
 	NewItclAPICmd(GetSampleTime);
 	
+	// Motor
+	NewItclAPICmd(SetMotorType);
+	NewItclAPICmd(GetMotorType);
+	NewItclAPICmd(SetMotorCommand);
+	NewItclAPICmd(GetMotorCommand);
+	NewItclAPICmd(GetActiveMotorCommand); // same as PMDGetCurrentMotorCommand
+
 	iso8859_1 = Tcl_GetEncoding(interp, "iso8859-1");
     }
 
@@ -232,6 +239,14 @@ private:
     NewAPICmd(PMDGetPositionError);
     NewAPICmd(PMDSetSampleTime);
     NewAPICmd(PMDGetSampleTime);
+
+    // Motor
+    NewAPICmd(PMDSetMotorType);
+    NewAPICmd(PMDGetMotorType);
+    NewAPICmd(PMDSetMotorCommand);
+    NewAPICmd(PMDGetMotorCommand);
+    NewAPICmd(PMDGetActiveMotorCommand); // same as PMDGetCurrentMotorCommand
+
 
 /*
     
