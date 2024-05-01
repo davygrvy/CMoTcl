@@ -58,7 +58,6 @@ public:
      NewItclCmd(STRINGIFY(JOIN(CMo-,a)), &ItclCMoAdaptor::PMD##a##Cmd)
 
 	// **** Begin API connections ****
-	NewItclAPICmd(GetVersion);
 
 	// Profile Generation
 	NewItclAPICmd(SetProfileMode);
@@ -105,12 +104,211 @@ public:
 	NewItclAPICmd(SetSampleTime);
 	NewItclAPICmd(GetSampleTime);
 	
+	// Parameter Update & Breakpoints
+	NewItclAPICmd(SetBreakpoint);
+	NewItclAPICmd(GetBreakpoint);
+	NewItclAPICmd(SetBreakpointValue);
+	NewItclAPICmd(GetBreakpointValue);
+	NewItclAPICmd(SetBreakpointUpdateMask);
+	NewItclAPICmd(GetBreakpointUpdateMask);
+	NewItclAPICmd(Update);
+	NewItclAPICmd(MultiUpdate);
+
+	// Interrupt Processing
+	NewItclAPICmd(SetInterruptMask);
+	NewItclAPICmd(GetInterruptMask);
+	NewItclAPICmd(ClearInterrupt);
+	NewItclAPICmd(GetInterruptAxis);
+
+	// Status Register Control
+	NewItclAPICmd(ResetEventStatus);
+	NewItclAPICmd(GetEventStatus);
+	NewItclAPICmd(GetActivityStatus);
+	NewItclAPICmd(SetSignalSense);
+	NewItclAPICmd(GetSignalSense);
+	NewItclAPICmd(GetSignalStatus);
+
+	// Encoder
+	NewItclAPICmd(AdjustActualPosition);
+	NewItclAPICmd(SetActualPosition);
+	NewItclAPICmd(GetActualPosition);
+	NewItclAPICmd(SetActualPositionUnits);
+	NewItclAPICmd(GetActualPositionUnits);
+	NewItclAPICmd(SetCaptureSource);
+	NewItclAPICmd(GetCaptureSource);
+	NewItclAPICmd(SetEncoderSource);
+	NewItclAPICmd(GetEncoderSource);
+	NewItclAPICmd(SetEncoderModulus);
+	NewItclAPICmd(GetEncoderModulus);
+	NewItclAPICmd(SetEncoderToStepRatio);
+	NewItclAPICmd(GetEncoderToStepRatio);
+	NewItclAPICmd(GetActualVelocity);
+	NewItclAPICmd(GetCaptureValue);
+	NewItclAPICmd(SetAuxiliaryEncoderSource);
+	NewItclAPICmd(GetAuxiliaryEncoderSource);
+
 	// Motor
 	NewItclAPICmd(SetMotorType);
 	NewItclAPICmd(GetMotorType);
 	NewItclAPICmd(SetMotorCommand);
 	NewItclAPICmd(GetMotorCommand);
 	NewItclAPICmd(GetActiveMotorCommand); // same as PMDGetCurrentMotorCommand
+
+	// Commutation
+	NewItclAPICmd(SetOutputMode);
+	NewItclAPICmd(GetOutputMode);
+	NewItclAPICmd(SetPWMFrequency);
+	NewItclAPICmd(GetPWMFrequency);
+	NewItclAPICmd(SetCommutationMode);
+	NewItclAPICmd(GetCommutationMode);
+	NewItclAPICmd(SetPhaseInitializeMode);
+	NewItclAPICmd(GetPhaseInitializeMode);
+	NewItclAPICmd(SetPhasePrescale);
+	NewItclAPICmd(GetPhasePrescale);
+	NewItclAPICmd(SetPhaseCounts);
+	NewItclAPICmd(GetPhaseCounts);
+	NewItclAPICmd(SetPhaseInitializeTime);
+	NewItclAPICmd(GetPhaseInitializeTime);
+	NewItclAPICmd(SetPhaseOffset);
+	NewItclAPICmd(GetPhaseOffset);
+	NewItclAPICmd(SetPhaseAngle);
+	NewItclAPICmd(GetPhaseAngle);
+	NewItclAPICmd(SetPhaseCorrectionMode);
+	NewItclAPICmd(GetPhaseCorrectionMode);
+	NewItclAPICmd(InitializePhase);
+	NewItclAPICmd(GetPhaseCommand);
+
+
+	// External Memory
+	NewItclAPICmd(SetBufferStart);
+	NewItclAPICmd(GetBufferStart);
+	NewItclAPICmd(SetBufferLength);
+	NewItclAPICmd(GetBufferLength);
+	NewItclAPICmd(WriteBuffer);
+	NewItclAPICmd(ReadBuffer);
+	NewItclAPICmd(SetBufferWriteIndex);
+	NewItclAPICmd(GetBufferWriteIndex);
+	NewItclAPICmd(SetBufferReadIndex);
+	NewItclAPICmd(GetBufferReadIndex);
+
+
+	// Trace Operations
+	NewItclAPICmd(SetTraceMode);
+	NewItclAPICmd(GetTraceMode);
+	NewItclAPICmd(SetTracePeriod);
+	NewItclAPICmd(GetTracePeriod);
+	NewItclAPICmd(SetTraceVariable);
+	NewItclAPICmd(GetTraceVariable);
+	NewItclAPICmd(SetTraceStart);
+	NewItclAPICmd(GetTraceStart);
+	NewItclAPICmd(SetTraceStop);
+	NewItclAPICmd(GetTraceStop);
+	NewItclAPICmd(GetTraceStatus);
+	NewItclAPICmd(GetTraceCount);
+	NewItclAPICmd(GetTraceValue);
+
+
+	// Miscellaneous
+	NewItclAPICmd(WriteIO);
+	NewItclAPICmd(ReadIO);
+	NewItclAPICmd(ReadAnalog);
+	NewItclAPICmd(Reset);
+	NewItclAPICmd(NoOperation);
+	NewItclAPICmd(GetVersion);
+	NewItclAPICmd(GetVersion32);
+	NewItclAPICmd(GetInstructionError); //was GetHostIOError
+
+	NewItclAPICmd(SetSerialPortMode);
+	NewItclAPICmd(GetSerialPortMode);
+	NewItclAPICmd(SetCANMode);
+	NewItclAPICmd(GetCANMode);
+	
+	NewItclAPICmd(SetSPIMode);
+	NewItclAPICmd(GetSPIMode);
+	NewItclAPICmd(GetTime);
+	NewItclAPICmd(GetChecksum);
+	NewItclAPICmd(SetStepRange);
+	NewItclAPICmd(GetStepRange);
+	NewItclAPICmd(SetSynchronizationMode);
+	NewItclAPICmd(GetSynchronizationMode);
+
+
+	// ION and Atlas specific functions
+	NewItclAPICmd(GetDriveStatus);
+	NewItclAPICmd(SetPositionLoop);
+	NewItclAPICmd(GetPositionLoop);
+	NewItclAPICmd(GetPositionLoopValue);
+	NewItclAPICmd(SetOperatingMode);
+	NewItclAPICmd(GetOperatingMode);
+	NewItclAPICmd(GetActiveOperatingMode);
+	NewItclAPICmd(RestoreOperatingMode);
+	NewItclAPICmd(SetCurrentFoldback);
+	NewItclAPICmd(GetCurrentFoldback);
+	NewItclAPICmd(SetHoldingCurrent);
+	NewItclAPICmd(GetHoldingCurrent);
+	NewItclAPICmd(SetCurrentControlMode);
+	NewItclAPICmd(GetCurrentControlMode);
+	NewItclAPICmd(SetAxisOutMask);
+	NewItclAPICmd(GetAxisOutMask);
+	NewItclAPICmd(SetEventAction);
+	NewItclAPICmd(GetEventAction);
+	NewItclAPICmd(SetBusVoltageLimits);
+	NewItclAPICmd(GetBusVoltageLimits);
+	NewItclAPICmd(GetBusVoltage);
+	NewItclAPICmd(SetOvertemperatureLimit);
+	NewItclAPICmd(GetOvertemperatureLimit);
+	NewItclAPICmd(GetTemperature);
+	NewItclAPICmd(ClearDriveFaultStatus);
+	NewItclAPICmd(GetDriveFaultStatus);
+	NewItclAPICmd(SetUpdateMask);
+	NewItclAPICmd(GetUpdateMask);
+	NewItclAPICmd(SetCurrentLoop);
+	NewItclAPICmd(GetCurrentLoop);
+	NewItclAPICmd(GetCurrentLoopValue);
+	NewItclAPICmd(SetDefault);
+	NewItclAPICmd(GetDefault);
+	NewItclAPICmd(SetFOC);
+	NewItclAPICmd(GetFOC);
+	NewItclAPICmd(GetFOCValue);
+	NewItclAPICmd(SetFaultOutMask);
+	NewItclAPICmd(GetFaultOutMask);
+
+
+	// Atlas, MC5x113 and MC7x113 specific functions
+	NewItclAPICmd(DriveNVRAM);
+	NewItclAPICmd(ReadBuffer16);
+	NewItclAPICmd(SetCurrent);
+	NewItclAPICmd(GetCurrent);
+	NewItclAPICmd(SetDriveFaultParameter);
+	NewItclAPICmd(GetDriveFaultParameter);
+	NewItclAPICmd(SetDrivePWM);
+	NewItclAPICmd(GetDrivePWM);
+	NewItclAPICmd(SetFeedbackParameter);
+	NewItclAPICmd(GetFeedbackParameter);
+
+	// MC5x113 specific functions
+	NewItclAPICmd(SetAnalogCalibration);
+	NewItclAPICmd(GetAnalogCalibration);
+	NewItclAPICmd(GetDriveValue);
+	NewItclAPICmd(CalibrateAnalog);
+
+	// MC7x113 specific functions
+	NewItclAPICmd(SetLoop);
+	NewItclAPICmd(GetLoop);
+	NewItclAPICmd(GetLoopValue);
+	NewItclAPICmd(SetProfileParameter);
+	NewItclAPICmd(GetProfileParameter);
+	NewItclAPICmd(GetProductInfo);
+	NewItclAPICmd(ExecutionControl);
+	NewItclAPICmd(SetCommutationParameter);
+	NewItclAPICmd(GetCommutationParameter);
+	NewItclAPICmd(SetPhaseParameter);
+	NewItclAPICmd(GetPhaseParameter);
+	NewItclAPICmd(SetDriveCommandMode);
+	NewItclAPICmd(GetDriveCommandMode);
+	NewItclAPICmd(GetRuntimeError);
+	NewItclAPICmd(SetCurrentLimit);
+	NewItclAPICmd(GetCurrentLimit);
 
 	iso8859_1 = Tcl_GetEncoding(interp, "iso8859-1");
     }
@@ -193,8 +391,6 @@ private:
 	return CMoPtr->a(interp,objc,objv); \
     }
 
-    NewAPICmd(PMDGetVersion);
-
     // Profile Generation
     NewAPICmd(PMDSetProfileMode);
     NewAPICmd(PMDGetProfileMode);
@@ -240,12 +436,214 @@ private:
     NewAPICmd(PMDSetSampleTime);
     NewAPICmd(PMDGetSampleTime);
 
+    // Parameter Update & Breakpoints
+    NewAPICmd(PMDSetBreakpoint);
+    NewAPICmd(PMDGetBreakpoint);
+    NewAPICmd(PMDSetBreakpointValue);
+    NewAPICmd(PMDGetBreakpointValue);
+    NewAPICmd(PMDSetBreakpointUpdateMask);
+    NewAPICmd(PMDGetBreakpointUpdateMask);
+    NewAPICmd(PMDUpdate);
+    NewAPICmd(PMDMultiUpdate);
+
+
+    // Interrupt Processing
+    NewAPICmd(PMDSetInterruptMask);
+    NewAPICmd(PMDGetInterruptMask);
+    NewAPICmd(PMDClearInterrupt);
+    NewAPICmd(PMDGetInterruptAxis);
+
+
+    // Status Register Control
+    NewAPICmd(PMDResetEventStatus);
+    NewAPICmd(PMDGetEventStatus);
+    NewAPICmd(PMDGetActivityStatus);
+    NewAPICmd(PMDSetSignalSense);
+    NewAPICmd(PMDGetSignalSense);
+    NewAPICmd(PMDGetSignalStatus);
+
+
+    // Encoder
+    NewAPICmd(PMDAdjustActualPosition);
+    NewAPICmd(PMDSetActualPosition);
+    NewAPICmd(PMDGetActualPosition);
+    NewAPICmd(PMDSetActualPositionUnits);
+    NewAPICmd(PMDGetActualPositionUnits);
+    NewAPICmd(PMDSetCaptureSource);
+    NewAPICmd(PMDGetCaptureSource);
+    NewAPICmd(PMDSetEncoderSource);
+    NewAPICmd(PMDGetEncoderSource);
+    NewAPICmd(PMDSetEncoderModulus);
+    NewAPICmd(PMDGetEncoderModulus);
+    NewAPICmd(PMDSetEncoderToStepRatio);
+    NewAPICmd(PMDGetEncoderToStepRatio);
+    NewAPICmd(PMDGetActualVelocity);
+    NewAPICmd(PMDGetCaptureValue);
+    NewAPICmd(PMDSetAuxiliaryEncoderSource);
+    NewAPICmd(PMDGetAuxiliaryEncoderSource);
+    
     // Motor
     NewAPICmd(PMDSetMotorType);
     NewAPICmd(PMDGetMotorType);
     NewAPICmd(PMDSetMotorCommand);
     NewAPICmd(PMDGetMotorCommand);
     NewAPICmd(PMDGetActiveMotorCommand); // same as PMDGetCurrentMotorCommand
+
+    // Commutation
+    NewAPICmd(PMDSetOutputMode);
+    NewAPICmd(PMDGetOutputMode);
+    NewAPICmd(PMDSetPWMFrequency);
+    NewAPICmd(PMDGetPWMFrequency);
+    NewAPICmd(PMDSetCommutationMode);
+    NewAPICmd(PMDGetCommutationMode);
+    NewAPICmd(PMDSetPhaseInitializeMode);
+    NewAPICmd(PMDGetPhaseInitializeMode);
+    NewAPICmd(PMDSetPhasePrescale);
+    NewAPICmd(PMDGetPhasePrescale);
+    NewAPICmd(PMDSetPhaseCounts);
+    NewAPICmd(PMDGetPhaseCounts);
+    NewAPICmd(PMDSetPhaseInitializeTime);
+    NewAPICmd(PMDGetPhaseInitializeTime);
+    NewAPICmd(PMDSetPhaseOffset);
+    NewAPICmd(PMDGetPhaseOffset);
+    NewAPICmd(PMDSetPhaseAngle);
+    NewAPICmd(PMDGetPhaseAngle);
+    NewAPICmd(PMDSetPhaseCorrectionMode);
+    NewAPICmd(PMDGetPhaseCorrectionMode);
+    NewAPICmd(PMDInitializePhase);
+    NewAPICmd(PMDGetPhaseCommand);
+
+
+    // External Memory
+    NewAPICmd(PMDSetBufferStart);
+    NewAPICmd(PMDGetBufferStart);
+    NewAPICmd(PMDSetBufferLength);
+    NewAPICmd(PMDGetBufferLength);
+    NewAPICmd(PMDWriteBuffer);
+    NewAPICmd(PMDReadBuffer);
+    NewAPICmd(PMDSetBufferWriteIndex);
+    NewAPICmd(PMDGetBufferWriteIndex);
+    NewAPICmd(PMDSetBufferReadIndex);
+    NewAPICmd(PMDGetBufferReadIndex);
+
+
+    // Trace Operations
+    NewAPICmd(PMDSetTraceMode);
+    NewAPICmd(PMDGetTraceMode);
+    NewAPICmd(PMDSetTracePeriod);
+    NewAPICmd(PMDGetTracePeriod);
+    NewAPICmd(PMDSetTraceVariable);
+    NewAPICmd(PMDGetTraceVariable);
+    NewAPICmd(PMDSetTraceStart);
+    NewAPICmd(PMDGetTraceStart);
+    NewAPICmd(PMDSetTraceStop);
+    NewAPICmd(PMDGetTraceStop);
+    NewAPICmd(PMDGetTraceStatus);
+    NewAPICmd(PMDGetTraceCount);
+    NewAPICmd(PMDGetTraceValue);
+
+
+    // Miscellaneous
+    NewAPICmd(PMDWriteIO);
+    NewAPICmd(PMDReadIO);
+    NewAPICmd(PMDReadAnalog);
+    NewAPICmd(PMDReset);
+    NewAPICmd(PMDNoOperation);
+    NewAPICmd(PMDGetVersion);
+    NewAPICmd(PMDGetVersion32);
+    NewAPICmd(PMDGetInstructionError); //was GetHostIOError
+
+    NewAPICmd(PMDSetSerialPortMode);
+    NewAPICmd(PMDGetSerialPortMode);
+    NewAPICmd(PMDSetCANMode);
+    NewAPICmd(PMDGetCANMode);
+
+    NewAPICmd(PMDSetSPIMode);
+    NewAPICmd(PMDGetSPIMode);
+    NewAPICmd(PMDGetTime);
+    NewAPICmd(PMDGetChecksum);
+    NewAPICmd(PMDSetStepRange);
+    NewAPICmd(PMDGetStepRange);
+    NewAPICmd(PMDSetSynchronizationMode);
+    NewAPICmd(PMDGetSynchronizationMode);
+
+
+    // ION and Atlas specific functions
+    NewAPICmd(PMDGetDriveStatus);
+    NewAPICmd(PMDSetPositionLoop);
+    NewAPICmd(PMDGetPositionLoop);
+    NewAPICmd(PMDGetPositionLoopValue);
+    NewAPICmd(PMDSetOperatingMode);
+    NewAPICmd(PMDGetOperatingMode);
+    NewAPICmd(PMDGetActiveOperatingMode);
+    NewAPICmd(PMDRestoreOperatingMode);
+    NewAPICmd(PMDSetCurrentFoldback);
+    NewAPICmd(PMDGetCurrentFoldback);
+    NewAPICmd(PMDSetHoldingCurrent);
+    NewAPICmd(PMDGetHoldingCurrent);
+    NewAPICmd(PMDSetCurrentControlMode);
+    NewAPICmd(PMDGetCurrentControlMode);
+    NewAPICmd(PMDSetAxisOutMask);
+    NewAPICmd(PMDGetAxisOutMask);
+    NewAPICmd(PMDSetEventAction);
+    NewAPICmd(PMDGetEventAction);
+    NewAPICmd(PMDSetBusVoltageLimits);
+    NewAPICmd(PMDGetBusVoltageLimits);
+    NewAPICmd(PMDGetBusVoltage);
+    NewAPICmd(PMDSetOvertemperatureLimit);
+    NewAPICmd(PMDGetOvertemperatureLimit);
+    NewAPICmd(PMDGetTemperature);
+    NewAPICmd(PMDClearDriveFaultStatus);
+    NewAPICmd(PMDGetDriveFaultStatus);
+    NewAPICmd(PMDSetUpdateMask);
+    NewAPICmd(PMDGetUpdateMask);
+    NewAPICmd(PMDSetCurrentLoop);
+    NewAPICmd(PMDGetCurrentLoop);
+    NewAPICmd(PMDGetCurrentLoopValue);
+    NewAPICmd(PMDSetDefault);
+    NewAPICmd(PMDGetDefault);
+    NewAPICmd(PMDSetFOC);
+    NewAPICmd(PMDGetFOC);
+    NewAPICmd(PMDGetFOCValue);
+    NewAPICmd(PMDSetFaultOutMask);
+    NewAPICmd(PMDGetFaultOutMask);
+
+
+    // Atlas, MC5x113 and MC7x113 specific functions
+    NewAPICmd(PMDDriveNVRAM);
+    NewAPICmd(PMDReadBuffer16);
+    NewAPICmd(PMDSetCurrent);
+    NewAPICmd(PMDGetCurrent);
+    NewAPICmd(PMDSetDriveFaultParameter);
+    NewAPICmd(PMDGetDriveFaultParameter);
+    NewAPICmd(PMDSetDrivePWM);
+    NewAPICmd(PMDGetDrivePWM);
+    NewAPICmd(PMDSetFeedbackParameter);
+    NewAPICmd(PMDGetFeedbackParameter);
+
+    // MC5x113 specific functions
+    NewAPICmd(PMDSetAnalogCalibration);
+    NewAPICmd(PMDGetAnalogCalibration);
+    NewAPICmd(PMDGetDriveValue);
+    NewAPICmd(PMDCalibrateAnalog);
+
+    // MC7x113 specific functions
+    NewAPICmd(PMDSetLoop);
+    NewAPICmd(PMDGetLoop);
+    NewAPICmd(PMDGetLoopValue);
+    NewAPICmd(PMDSetProfileParameter);
+    NewAPICmd(PMDGetProfileParameter);
+    NewAPICmd(PMDGetProductInfo);
+    NewAPICmd(PMDExecutionControl);
+    NewAPICmd(PMDSetCommutationParameter);
+    NewAPICmd(PMDGetCommutationParameter);
+    NewAPICmd(PMDSetPhaseParameter);
+    NewAPICmd(PMDGetPhaseParameter);
+    NewAPICmd(PMDSetDriveCommandMode);
+    NewAPICmd(PMDGetDriveCommandMode);
+    NewAPICmd(PMDGetRuntimeError);
+    NewAPICmd(PMDSetCurrentLimit);
+    NewAPICmd(PMDGetCurrentLimit);
 
 
 /*
