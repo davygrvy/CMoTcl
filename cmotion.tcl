@@ -216,7 +216,7 @@ itcl::class ::pmd::cmotion {
 	method SetFaultOutMask {} @CMo-SetFaultOutMask
 	method GetFaultOutMask {} @CMo-GetFaultOutMask
 
-	// Atlas, MC5x113 and MC7x113 specific functions
+	# Atlas, MC5x113 and MC7x113 specific functions
 	method DriveNVRAM {} @CMo-DriveNVRAM
 	method ReadBuffer16 {} @CMo-ReadBuffer16
 	method SetCurrent {} @CMo-SetCurrent
@@ -228,13 +228,13 @@ itcl::class ::pmd::cmotion {
 	method SetFeedbackParameter {} @CMo-SetFeedbackParameter
 	method GetFeedbackParameter {} @CMo-GetFeedbackParameter
 
-	// MC5x113 specific functions
+	# MC5x113 specific functions
 	method SetAnalogCalibration {} @CMo-SetAnalogCalibration
 	method GetAnalogCalibration {} @CMo-GetAnalogCalibration
 	method GetDriveValue {} @CMo-GetDriveValue
 	method CalibrateAnalog {} @CMo-CalibrateAnalog
 
-	// MC7x113 specific functions
+	# MC7x113 specific functions
 	method SetLoop {} @CMo-SetLoop
 	method GetLoop {} @CMo-GetLoop
 	method GetLoopValue {} @CMo-GetLoopValue
