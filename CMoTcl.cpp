@@ -330,7 +330,7 @@ private:
 	if (GetItclObj(&ItclObj, objv[0]) != TCL_OK) return TCL_ERROR;
 
 	// Using the Itcl object context pointer as our key, create a new
-	// CMoAPI C++ object and store the pointer in the hash table.
+	// CMoAxis C++ object and store the pointer in the hash table.
 	try {
 	    CMoPtr = new CMoAxis(interp);
 	}
@@ -360,7 +360,7 @@ private:
 	// retrieve the Itcl object context
 	if (GetItclObj(&ItclObj, objv[0]) != TCL_OK) return TCL_ERROR;
 
-	// grab the CMoAPI instance associated to this Itcl instance
+	// grab the CMoAxis instance associated to this Itcl instance
 	if (CMoHash.Extract(ItclObj, &CMoPtr) == TCL_OK) {
 
 	    // Itcl's destructor may be called even though the Itcl class

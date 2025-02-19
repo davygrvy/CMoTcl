@@ -234,7 +234,6 @@ public:
     int PMDGetDriveValue(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
     int PMDCalibrateAnalog(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
 
-    // MC7x113 specific functions
     int PMDSetLoop(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
     int PMDGetLoop(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);
     int PMDGetLoopValue(Tcl_Interp* interp, int objc, struct Tcl_Obj* const objv[]);

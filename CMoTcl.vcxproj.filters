@@ -45,6 +45,9 @@
   <ItemGroup>
     <None Include="cmotion.tcl" />
     <None Include="pkgIndex.tcl" />
+    <None Include="c-motion\magellan-motion-control-ic-programmers-command-reference-manual.pdf">
+      <Filter>C-Motion</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="C-Motion">
